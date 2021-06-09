@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app_mymusic/Utils/ColorUtils.dart';
 import 'package:flutter_app_mymusic/Utils/MyHttpUtils.dart';
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -11,7 +14,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController _phoneController = TextEditingController();//手机号输入框管理者
   TextEditingController _passwordController = TextEditingController();//密码输入框管理者
-
+  Map<String,dynamic> userCookie;//用于存储用户登录后的用户信息
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -161,8 +164,25 @@ class _LoginPageState extends State<LoginPage> {
     
     
     //2.后端验证
-    Future<Response> response =  MyHttpUtils.getInstance().get("/login/cellphone",params: {"phone":phone,"password":password,"isLogin":true});
-    // Future<Response> response = MyHttpUtils.getInstance().get("https://chenq7777.cn.utools.club/login/cellphone?phone=18270105407&password=222334455abc");
+    Response response = await MyHttpUtils.getInstance().get("/login/cellphone",params: {"phone":phone,"password":password,"isLogin":true});
+    userCookie = jsonDecode(response.toString());
+    if(userCookie!=null){
+      int code = userCookie["code"];
+      if(code == 200){
+        //登录成功，跳转到个人中心页
+        showDialog(context: context, builder: (context)=>AlertDialog(title: Text("登录成功")));
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString("userInfo", userCookie["profile"]);
+      }else if(code == 502){
+        //密码错误，弹出密码错误提示
+        showDialog(context: context, builder: (context)=>AlertDialog(title: Text("密码错误")));
+      }else if(code == 400){
+        //手机号错误
+        showDialog(context: context, builder: (context)=>AlertDialog(title: Text("手机号错误")));
+      }else{
+        showDialog(context: context, builder: (context)=>AlertDialog(title: Text("登录失败，请重新登录")));
+      }
+    }
   }
 }
 

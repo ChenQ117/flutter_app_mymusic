@@ -58,7 +58,6 @@ class MyHttpUtils{
     Response response;
     try{
       response = await _dio.get(url,queryParameters: params,options: options,cancelToken: cancelToken);
-      print('getHttp response: $response');
     }on DioError catch(e){
       print('getHttp exception: $e');
       formatError(e);
@@ -71,7 +70,6 @@ class MyHttpUtils{
     Response response;
     try{
       response = await _dio.post(url,queryParameters: params,options: options,cancelToken: cancelToken);
-      print('postHttp response: $response');
     }on DioError catch(e){
       print('postHttp exception: $e');
       formatError(e);

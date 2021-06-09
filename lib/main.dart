@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.yellow,
           primaryColor: ColorUtils.createColorHex(0xd43c33)
       ),
-      home: LoginPage(),
+      home: TabsController(),
     );
   }
 }

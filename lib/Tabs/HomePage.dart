@@ -491,12 +491,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   setBannerList() async {
-    Response response /*= MyHttpUtils.getInstance().get("/banner",params:{ "type":1})*/;
+    Response response = await MyHttpUtils.getInstance().get("/banner",params:{ "type":1});
     Map<String, dynamic> responseData = new Map<String, dynamic>.from(
         jsonDecode(response.toString()));
-    setState(() {
-      banners = responseData["banners"];
-    });
+    if(responseData["code"] == 200){
+      setState(() {
+        banners = responseData["banners"];
+      });
+    }
     /*return Container(
         child: FutureBuilder(
           future: _dio.get(mobilehost+"/banner?type=2"),
@@ -524,16 +526,18 @@ class _HomePageState extends State<HomePage> {
   }
 
   setRecommendData() async {
-    Response response /*= MyHttpUtils.getInstance().get("/personalized",params:{ "limit":10})*/;
+    Response response = await MyHttpUtils.getInstance().get("/personalized",params:{ "limit":10});
     Map<String, dynamic> responseData = jsonDecode(response.toString());
-    setState(() {
-      recommendData = responseData["result"];
-    });
+    if(responseData["code"] == 200){
+      setState(() {
+        recommendData = responseData["result"];
+      });
+    }
   }
 
   setTopData() async {
     for (var i = 0; i < 5; i++) {
-      Response response /*= MyHttpUtils.getInstance().get("/top/list",params:{ "idx":i})*/;
+      Response response = await MyHttpUtils.getInstance().get("/top/list",params:{ "idx":i});
       Map<String, dynamic> responseData = jsonDecode(response.toString());
       if (responseData["code"] == 200) {
         setState(() {
