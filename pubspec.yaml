@@ -52,10 +52,20 @@ flutter:
     - family: MyIcons
       fonts:
         - asset: lib/asserts/icons/iconfont.ttf
+  assets:
+    - lib/asserts/images/personal/bgImg2.jpg
+    - lib/asserts/images/personal/missing-face.png
+    - lib/asserts/images/personal/vip-card-bg.png
+    - lib/asserts/images/personal/user-bg.jpg
+    - lib/asserts/images/personal/arc.png
+    - lib/asserts/images/personal/bgImg.jpg
+#  assets:
+#    - images/personal/bglmg2.jpg
+#    - images/personal/missing-face.png
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+#  assets:
+#   - images/a_dot_burr.jpeg
+#   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

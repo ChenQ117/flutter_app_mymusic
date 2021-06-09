@@ -164,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
     
     
     //2.后端验证
-    Response response = await MyHttpUtils.getInstance().get("/login/cellphone",params: {"phone":phone,"password":password,"isLogin":true});
+    Response response = await MyHttpUtils.getInstance().get("/login/cellphone",params: {"phone":phone,"password":password});
     userCookie = jsonDecode(response.toString());
     if(userCookie!=null){
       int code = userCookie["code"];
@@ -172,7 +172,8 @@ class _LoginPageState extends State<LoginPage> {
         //登录成功，跳转到个人中心页
         showDialog(context: context, builder: (context)=>AlertDialog(title: Text("登录成功")));
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setString("userInfo", userCookie["profile"]);
+        prefs.setString("userInfo", userCookie["profile"].toString());
+        Navigator.of(context).pushNamedAndRemoveUntil("/", (route) => false);
       }else if(code == 502){
         //密码错误，弹出密码错误提示
         showDialog(context: context, builder: (context)=>AlertDialog(title: Text("密码错误")));

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_mymusic/Route/Routes.dart';
 import 'package:flutter_app_mymusic/Tabs/TabsController.dart';
 import 'package:flutter_app_mymusic/Utils/ColorUtils.dart';
 import 'package:flutter_app_mymusic/pages/LoginPage.dart';
@@ -12,6 +13,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/',
+      onGenerateRoute: onGenerateRoute,
+      routes: routes,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -26,7 +30,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.yellow,
           primaryColor: ColorUtils.createColorHex(0xd43c33)
       ),
-      home: TabsController(),
+      // home: LoginPage(),
     );
   }
 }

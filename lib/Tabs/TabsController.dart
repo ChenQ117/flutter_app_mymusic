@@ -10,7 +10,7 @@ import 'package:flutter_app_mymusic/Utils/ColorUtils.dart';
  */
 class TabsController extends StatefulWidget{
   final index;
-  TabsController({Key key, this.index = 0}):super(key: key);
+  TabsController({Key key, this.index = 2}):super(key: key);
   @override
   State<StatefulWidget> createState() {
    return _TabsControllerState(this.index);
@@ -20,8 +20,8 @@ class TabsController extends StatefulWidget{
 class _TabsControllerState extends State{
   List _pageList=[
     HomePage(),
-    PersonalPage(),
-    VideoPage()
+    VideoPage(),
+    PersonalPage()
   ];
   int _currentIndex;
   _TabsControllerState(index){
