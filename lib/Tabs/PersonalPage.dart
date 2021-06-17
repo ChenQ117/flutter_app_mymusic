@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_mymusic/Utils/ColorUtils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PersonalPage extends StatefulWidget {
   @override
@@ -13,6 +15,7 @@ class _PersonalPageState extends State<PersonalPage> {
   double startY=0;//手指起始的坐标
   double moveY=0;//手指移动的坐标
   double moveDistance=0;//手指移动的距离
+  Map<String,dynamic> userInfo;//用户登录数据
   @override
   Widget build(BuildContext context) {
     return Scrollbar(
@@ -304,5 +307,9 @@ class _PersonalPageState extends State<PersonalPage> {
           )
        )
     );
+  }
+  getUserInfo() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userInfo = jsonDecode(prefs.getString("userInfo"));
   }
 }
