@@ -172,8 +172,11 @@ class _LoginPageState extends State<LoginPage> {
         //登录成功，跳转到个人中心页
         showDialog(context: context, builder: (context)=>AlertDialog(title: Text("登录成功")));
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setString("userInfo", userCookie["profile"].toString());
+        var jsonEn = jsonEncode(userCookie["profile"]);
+
+        prefs.setString("userInfo", jsonEn);
         Navigator.of(context).pushNamedAndRemoveUntil("/", (route) => false);
+        // Navigator.of(context).pushNamed("/");
       }else if(code == 502){
         //密码错误，弹出密码错误提示
         showDialog(context: context, builder: (context)=>AlertDialog(title: Text("密码错误")));

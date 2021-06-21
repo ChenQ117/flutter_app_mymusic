@@ -494,41 +494,17 @@ class _HomePageState extends State<HomePage> {
     Response response = await MyHttpUtils.getInstance().get("/banner",params:{ "type":1});
     Map<String, dynamic> responseData = new Map<String, dynamic>.from(
         jsonDecode(response.toString()));
-    if(responseData["code"] == 200){
+    if(mounted && responseData["code"] == 200){
       setState(() {
         banners = responseData["banners"];
       });
     }
-    /*return Container(
-        child: FutureBuilder(
-          future: _dio.get(mobilehost+"/banner?type=2"),
-          builder: (BuildContext context, AsyncSnapshot snapshot){
-            //请求完成
-            if(snapshot.connectionState == ConnectionState.done){
-              Response response = snapshot.data;
-              //如果请求失败，返回错误信息
-              if(snapshot.hasError){
-                return Text(snapshot.error.toString());
-              }
-              //请求成功，通过项目信息构建请求成功的组件
-              Map<String, dynamic> responseData = new Map<String, dynamic>.from(jsonDecode(response.toString()));
-              banners = responseData["banners"];
-              String pic = banners[index]["pic"];
-              pic = pic.replaceFirst("http:", "https:");
-              return Image.network(pic,fit: BoxFit.fill);
-            }else{
-              // 请求未结束，显示loading
-              return CircularProgressIndicator();
-            }
-          },
-        )
-    );*/
   }
 
   setRecommendData() async {
     Response response = await MyHttpUtils.getInstance().get("/personalized",params:{ "limit":10});
     Map<String, dynamic> responseData = jsonDecode(response.toString());
-    if(responseData["code"] == 200){
+    if(mounted && responseData["code"] == 200){
       setState(() {
         recommendData = responseData["result"];
       });
@@ -539,7 +515,7 @@ class _HomePageState extends State<HomePage> {
     for (var i = 0; i < 5; i++) {
       Response response = await MyHttpUtils.getInstance().get("/top/list",params:{ "idx":i});
       Map<String, dynamic> responseData = jsonDecode(response.toString());
-      if (responseData["code"] == 200) {
+      if (mounted && responseData["code"] == 200) {
         setState(() {
           topData.insert(i, responseData["playlist"]);
         });
