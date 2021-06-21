@@ -26,7 +26,6 @@ class _PersonalPageState extends State<PersonalPage> {
   _PersonalPageState(){
 
     if(userInfo.isEmpty){
-      print("------------------------");
       myWidget[avatarUrl] = Image.asset("lib/asserts/images/personal/missing-face.png",fit: BoxFit.fill,);
       myWidget[nickname] = Text("游客",style: TextStyle(fontSize: 22.0,color: Color.fromRGBO(96, 96, 99, 1.0)),);
     }
